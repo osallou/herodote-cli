@@ -39,6 +39,7 @@ sendMsg = (msg) => {
 
 
 router.post('/', function(req, res, next) {
+  req.locals.logInfo.status = 'pending'
   jobs_db.insert(req.locals.logInfo).then(job => {
       return sendMsg(job)
   }).then( ok => {
