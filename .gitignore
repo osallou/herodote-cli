@@ -1,0 +1,5 @@
+node_modules
+test-token.js
+*.log
+.env
+docker-compose.yml
