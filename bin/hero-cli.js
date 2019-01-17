@@ -11,6 +11,12 @@ winston.loggers.add('herodote', {
   transports: [myconsole]
 })
 
+let mongoUrl = 'localhost:27017/hero';
+var monk = require('monk');
+var db = monk(mongoUrl);
+var jobs_db = db.get('jobs');
+
+
 const logger = winston.loggers.get('herodote');
 
 const composeTpl = function() {
@@ -128,6 +134,33 @@ program
         }));
         process.exit(0);
     }) 
+  });
+
+program
+  .command('jobs') // sub-command name
+  .description('Get jobs info') // command description
+  .option('-i, --id [value]', 'job id', null)
+  .action(function (args) {
+    filter = {}
+    if(args.id) {
+        filter = {'_id': monk.id(args.id)}
+    }
+    jobs_db.find(filter).then(jobs => {
+        results = []
+        for(let i=0;i<jobs.length;i++) {
+            let job = jobs[i];
+            if(job.exitCode === undefined) {
+                job.exitCode = -1
+            }
+            if(job.status === undefined) {
+                job.status = "unknown"
+            }
+            results.push({'id': job._id, 'exitCode': job.exitCode, 'status': job.status});
+        }
+        console.table(results);
+        process.exit(0);
+
+    }).catch(err => {console.log('error',err); process.exit(1)});
   });
 
   program.parse(process.argv);
