@@ -49,3 +49,7 @@ On Openstack, *init* will try to auto-detect private and public IP addresses. In
 
     SECRET=XXX RABBIT_URL=YYY node bin/hero-master
     SECRET=XXX RABBIT_URL=YYY node bin/hero-slave
+
+## hero-cli
+
+*hero-cli* is used at init, but is also gives information on jobs. See -h for help.
