@@ -67,7 +67,7 @@ function consumer(conn) {
                 console.log('run the job ', content._id);
                 let cmdFileId = crypto.randomBytes(10).toString('hex');
                 let cmdFile = '/tmp/' + cmdFileId + '.sh';
-                fs.writeFile('/tmp/' + cmdFile + '.sh', job.cmd, (err) => {
+                fs.writeFile(cmdFile, job.cmd, (err) => {
                     if (err) {
                         fs.unlinkSync(cmdFile);
                         failJob(content);
