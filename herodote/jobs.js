@@ -7,7 +7,7 @@ var amqp = require('amqplib');
 
 let mongoUrl = 'localhost:27017/hero';
 if(process.env.MONGO) {
-    mongoUrl = 'mongo:27017/hero';
+    mongoUrl = process.env.MONGO;
 }
 
 var monk = require('monk');
@@ -39,8 +39,13 @@ sendMsg = (msg) => {
 
 
 router.post('/', function(req, res, next) {
-  req.locals.logInfo.status = 'pending'
-  jobs_db.insert(req.locals.logInfo).then(job => {
+  req.locals.logInfo.status = 'pending';
+  if(! req.body.cmd) {
+      res.status(403).send('missing cmd');
+      return;
+  }
+  logger.info('new job request for: ' + req.locals.logInfo);
+  jobs_db.insert(req.body).then(job => {
       return sendMsg(job)
   }).then( ok => {
     res.send('job submitted');
