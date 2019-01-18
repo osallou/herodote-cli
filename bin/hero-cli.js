@@ -60,12 +60,12 @@ Then create a hook with executor "webhook", and add as extra parameters:
 
 To start master run:
     docker-compose up -d
-    SECRET=XXXX RABBIT=amqp://herodote:RABBIT@IP:5672/%2F MONGO=IP:27017/hero hero-master
+    SECRET=XXXX RABBIT=amqp://herodote:RABBITPWD@IP:5672/%2F MONGO=IP:27017/hero hero-master
 
 To start a slave, on a slave host, run the following:
-    hero-slave run --secret SECRET --rabbit amqp://herodote:RABBIT@IP:5672/%2F --mongo IP:27017/hero
+    hero-slave run --secret SECRET --rabbit amqp://herodote:RABBITPWD@IP:5672/%2F --mongo IP:27017/hero
 `.replace('SECRET', data.secret)
-    .replace('RABBIT', data.rabbit)
+    .replace('RABBITPWD', data.rabbit)
     .replace(/IP/g, data.ip)
     .replace('PUBLIC', data.public)
 }
