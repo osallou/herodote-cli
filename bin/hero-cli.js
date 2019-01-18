@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 const program = require('commander')
 var crypto = require('crypto');
 var winston = require('winston');
@@ -38,13 +40,6 @@ services:
     environment:
       - RABBITMQ_DEFAULT_USER=herodote
       - RABBITMQ_DEFAULT_PASS=\${RABBITMQ_PASSWORD}
-
-  hero-master:
-    image: osallou/hero
-    environment:
-      - MONGO=mongo:27017/hero
-      - RABBIT_URL=amqp://herodote:\${RABBITMQ_PASSWORD}@localhost:5672/%2F
-      - SECRET=\${SECRET}
 `
 }
 
@@ -60,10 +55,10 @@ Then create a hook with executor "webhook", and add as extra parameters:
 
 To start master run:
     docker-compose up -d
-    SECRET=XXXX RABBIT=amqp://herodote:RABBITPWD@IP:5672/%2F MONGO=IP:27017/hero hero-master
+    SECRET=XXXX RABBIT=amqp://herodote:RABBITPWD@IP:5672/%2F MONGO=IP:27017/hero node bin/hero-master
 
 To start a slave, on a slave host, run the following:
-    hero-slave run --secret SECRET --rabbit amqp://herodote:RABBITPWD@IP:5672/%2F --mongo IP:27017/hero
+    node bin/hero-slave run --secret SECRET --rabbit amqp://herodote:RABBITPWD@IP:5672/%2F --mongo IP:27017/hero
 `.replace('SECRET', data.secret)
     .replace('RABBITPWD', data.rabbit)
     .replace(/IP/g, data.ip)

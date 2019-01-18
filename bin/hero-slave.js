@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 const program = require('commander')
 var fs = require('fs');
 var amqp = require('amqplib/callback_api');
