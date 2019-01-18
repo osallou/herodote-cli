@@ -44,6 +44,8 @@ router.post('/', function(req, res, next) {
       res.status(403).send('missing cmd');
       return;
   }
+  req.body.submitDate = new Date();
+
   logger.info('new job request for: ' + req.locals.logInfo);
   jobs_db.insert(req.body).then(job => {
       return sendMsg(job)

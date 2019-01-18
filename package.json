@@ -1,6 +1,6 @@
 {
   "name": "herodote-cli",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "Client to manage web hooks from a Herodote server",
   "main": "index.js",
   "scripts": {

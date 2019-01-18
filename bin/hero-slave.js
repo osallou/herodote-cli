@@ -30,7 +30,7 @@ runJob = (job) => {
             if(! jobInfo) {
                 reject('not found')
             }
-            jobs_db.update({'_id': monk.id(job._id)}, {'$set': {'status': 'running'}})
+            jobs_db.update({'_id': monk.id(job._id)}, {'$set': {'status': 'running', 'startDate': new Date()}})
             resolve(jobInfo);
         })
         .catch(err => {
@@ -41,14 +41,14 @@ runJob = (job) => {
 
 successJob = (job, code) => {
     console.log('job exec success', job);
-    jobs_db.update({'_id': monk.id(job._id)}, {'$set': {'exitCode': code, 'status': 'over'}}).catch(err => {
+    jobs_db.update({'_id': monk.id(job._id)}, {'$set': {'exitCode': code, 'status': 'over', 'endDate': new Date()}}).catch(err => {
         console.log('failed to update job status', job);
     })
 }
 
 failJob = (job) => {
     console.log('failed to execute job', job);
-    jobs_db.update({'_id': monk.id(job._id)}, {'$set': {'exitCode': -1, 'status': 'failed'}}).catch(err => {
+    jobs_db.update({'_id': monk.id(job._id)}, {'$set': {'exitCode': -1, 'status': 'failed', 'endDate': new Date()}}).catch(err => {
         console.log('failed to update job status', job);
     })
 }

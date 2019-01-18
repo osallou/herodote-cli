@@ -153,7 +153,13 @@ program
             if(job.status === undefined) {
                 job.status = "unknown"
             }
-            results.push({'id': job._id, 'exitCode': job.exitCode, 'status': job.status});
+            let info = {'id': job._id, 'hook': job.hook, 'file':  job.file, 'exitCode': job.exitCode, 'status': job.status};
+            if(args.id) {
+                info.submitDate = job.submitDate;
+                info.startDate = job.startDate;
+                info.endDate = job.endDate;
+            }
+            results.push(info);
         }
         console.table(results);
         process.exit(0);
