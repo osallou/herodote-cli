@@ -1,11 +1,14 @@
 {
   "name": "@osallou/herodote-cli",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Client to manage web hooks from a Herodote server",
   "main": "index.js",
   "scripts": {
     "start-master": "node ./bin/hero-master.js",
     "start-slave": "node ./bin/hero-slave.js"
+  },
+  "bin": {
+    "hero-cli": "./bin/hero-cli.js"
   },
   "repository": {
     "type": "git",
