@@ -71,7 +71,7 @@ const getMetaData= function(meta) {
             resolve(resp.data)
         }).catch(err => {
             logger.error('failed to fetch metadata from openstack');
-            process.exit(1);
+            resolve("")
         })
     });
 }
@@ -120,7 +120,11 @@ program
     })
     .then(res => {
         meta.publicIp = res;
-        if(meta.publicIp=="") {
+        if(meta.privateIp == "") {
+            logger.warn('Could not find a private local IP address, replace the PRIVATE strings with your server IP address');
+            meta.privateIp = "PRIVATE"
+        }
+        if(meta.publicIp == "") {
             logger.warn('Could not find a public IP address, replace the Herodote URL with the publicly address of this server');
             meta.publicIp = 'public_ip_address_of_server';
         }

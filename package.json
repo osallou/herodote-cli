@@ -1,5 +1,5 @@
 {
-  "name": "herodote-cli",
+  "name": "@osallou/herodote-cli",
   "version": "0.0.1",
   "description": "Client to manage web hooks from a Herodote server",
   "main": "index.js",
