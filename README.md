@@ -2,7 +2,7 @@
 
 ## About
 
-Herodote-cli setup a server to handle some job requests from an Herodote server with web hooks.
+Herodote-cli setup a server to handle some job requests from an [Herodote](https://github.com/osallou/herodote) server with web hooks.
 It is composed of a server handling web hooks, and slaves that execute the jobs.
 
 Herodote server will send a request to your server on data modification with the details of the command to execute. Data will be fetched from Openstack Swift, command executed and results pushed back to Swift.
