@@ -50,15 +50,20 @@ docker-compose.yml and .env files generated!
 To receive compute requests from Herodote, go to the Herodote server and create a project (if not already done).
 Then create a hook with executor "webhook", and add as extra parameters:
 
-* url=https://PUBLIC/job
+* url=https://PUBLIC/jobs
 * secret=SECRET
 
 To start master run:
     docker-compose up -d
-    SECRET=XXXX RABBIT=amqp://herodote:RABBITPWD@IP:5672/%2F MONGO=IP:27017/hero node bin/hero-master
+    node bin/hero-master --rabbit amqp://herodote:RABBITPWD@IP:5672/%2F --mongo IP:27017/hero --secret SECRET
 
 To start a slave, on a slave host, run the following:
-    node bin/hero-slave run --secret SECRET --rabbit amqp://herodote:RABBITPWD@IP:5672/%2F --mongo IP:27017/hero
+    node bin/hero-slave run --rabbit amqp://herodote:RABBITPWD@IP:5672/%2F --mongo IP:27017/hero
+
+To run hero-master or hero-slave as a background service
+
+    forever start ....
+
 `.replace('SECRET', data.secret)
     .replace('RABBITPWD', data.rabbit)
     .replace(/IP/g, data.ip)

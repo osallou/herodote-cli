@@ -5,21 +5,20 @@ var Promise = require('promise')
 const logger = winston.loggers.get('herodote');
 var amqp = require('amqplib');
 
-let mongoUrl = 'localhost:27017/hero';
-if(process.env.MONGO) {
-    mongoUrl = process.env.MONGO;
-}
 
 var monk = require('monk');
-var db = monk(mongoUrl);
-var jobs_db = db.get('jobs');
+//var db = monk(mongoUrl);
+//var jobs_db = db.get('jobs');
+let db = null;
+let jobs_db = null;
+let rabbitUrl = null;
 
 const heroQueue = 'hero';
 
 sendMsg = (msg) => {
     return new Promise(function (resolve, reject){
         let conn = null;
-        amqp.connect(process.env.RABBIT_URL).then(function(_conn) {
+        amqp.connect(rabbitUrl).then(function(_conn) {
             conn = _conn;
             return conn.createChannel();
         }).then(ch => {
@@ -37,8 +36,17 @@ sendMsg = (msg) => {
     });
 }
 
+function setCfg(cfg) {
+    db = monk(cfg.mongoUrl);
+    jobs_db = db.get('herodoteConfig');
+    rabbitUrl = cfg.rabbitUrl;
+}
+
 
 router.post('/', function(req, res, next) {
+  if(db == null) {
+    setCfg(req.app.get('herodoteConfig'))
+  }
   req.body.status = 'pending';
   if(! req.body.cmd) {
       res.status(403).send('missing cmd');
@@ -60,6 +68,9 @@ router.post('/', function(req, res, next) {
 });
 
 router.get('/', function(req, res, next) {
+    if(db == null) {
+        setCfg(req.app.get('herodoteConfig'))
+    }
     jobs_db.find({}).then(jobs => {
         res.send(jobs);
         res.end();

@@ -42,6 +42,7 @@ app.use(express.urlencoded({ extended: false }));
 
 
 app.all('*', function(req, res, next){
+
   logInfo = {}
   if(! req.locals) {
       req.locals = {};
