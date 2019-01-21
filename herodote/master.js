@@ -52,7 +52,7 @@ app.all('*', function(req, res, next){
   if (authorization) {
       let elts = authorization.split(' ');
       try {
-          jwtToken = jwt.verify(elts[elts.length - 1], process.env.SECRET);
+          jwtToken = jwt.verify(elts[elts.length - 1], req.app.get('herodoteConfig').secret);
       } catch(err) {
           logger.warn('failed to decode jwt');
           jwtToken = null;

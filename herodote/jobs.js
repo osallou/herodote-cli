@@ -38,7 +38,7 @@ sendMsg = (msg) => {
 
 function setCfg(cfg) {
     db = monk(cfg.mongoUrl);
-    jobs_db = db.get('herodoteConfig');
+    jobs_db = db.get('jobs');
     rabbitUrl = cfg.rabbitUrl;
 }
 

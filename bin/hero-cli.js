@@ -53,9 +53,9 @@ Then create a hook with executor "webhook", and add as extra parameters:
 * url=https://PUBLIC/jobs
 * secret=SECRET
 
-To start master run:
+To start master on port 80, run:
     docker-compose up -d
-    node bin/hero-master --rabbit amqp://herodote:RABBITPWD@IP:5672/%2F --mongo IP:27017/hero --secret SECRET
+    PORT=80 node bin/hero-master --rabbit amqp://herodote:RABBITPWD@IP:5672/%2F --mongo IP:27017/hero --secret SECRET
 
 To start a slave, on a slave host, run the following:
     node bin/hero-slave run --rabbit amqp://herodote:RABBITPWD@IP:5672/%2F --mongo IP:27017/hero

@@ -8,10 +8,6 @@ var crypto = require('crypto');
 const { spawn } = require('child_process');
 
 let mongoUrl = 'localhost:27017/hero';
-if(process.env.MONGO) {
-    mongoUrl = process.env.MONGO;
-}
-
 
 var monk = require('monk');
 var db = null;
@@ -119,6 +115,9 @@ program
     }
     if(args.mongo) {
         mongoUrl = args.mongo
+    }
+    if(process.env.MONGO) {
+        mongoUrl = process.env.MONGO;
     }
     db = monk(mongoUrl);
     jobs_db = db.get('jobs');
