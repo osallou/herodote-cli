@@ -47,8 +47,8 @@ On Openstack, *init* will try to auto-detect private and public IP addresses. In
 
 ## Production
 
-    SECRET=XXX RABBIT_URL=YYY node bin/hero-master
-    SECRET=XXX RABBIT_URL=YYY node bin/hero-slave
+    node bin/hero-master --mongo localhost:27017/hero --rabbit amqp://login:password@host:3672/%2F --secret XXXX
+    node bin/hero-slave --mongo localhost:27017/hero --rabbit amqp://login:password@host:3672/%2F
 
 ## hero-cli
 
