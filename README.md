@@ -42,8 +42,13 @@ On Openstack, *init* will try to auto-detect private and public IP addresses. In
 
 ## Development
 
-    NODE_ENV=development SECRET=123 RABBIT_URL=amqp://guest:guest@localhost:5672/%2F node node_modules/nodemon/bin/nodemon bin/hero-master
-    NODE_ENV=development SECRET=123 RABBIT_URL=amqp://guest:guest@localhost:5672/%2F node node_modules/nodemon/bin/nodemon bin/hero-slave
+Start a mongo and rabbitmq server locally (on host or docker exposing ports) and update rabbitmq credentials in command.
+
+Install npm nodemon for autorestart on file change.
+
+    NODE_ENV=development node node_modules/nodemon/bin/nodemon bin/hero-master --mongo localhost:27017/hero --rabbit amqp://login:password@host:3672/%2F --secret XXX
+
+    NODE_ENV=development node node_modules/nodemon/bin/nodemon bin/hero-slave --mongo localhost:27017/hero --rabbit amqp://login:password@host:3672/%2F
 
 ## Production
 
@@ -52,4 +57,6 @@ On Openstack, *init* will try to auto-detect private and public IP addresses. In
 
 ## hero-cli
 
-*hero-cli* is used at init, but is also gives information on jobs. See -h for help.
+*hero-cli* is used at init, but it also gives information on jobs (listing, details). See -h for help.
+
+    node bin/hero-cli -h
