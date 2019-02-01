@@ -52,8 +52,8 @@ Install npm nodemon for autorestart on file change.
 
 ## Production
 
-    node bin/hero-master --mongo localhost:27017/hero --rabbit amqp://login:password@host:3672/%2F --secret XXXX
-    node bin/hero-slave --mongo localhost:27017/hero --rabbit amqp://login:password@host:3672/%2F
+    hero-master --mongo localhost:27017/hero --rabbit amqp://login:password@host:3672/%2F --secret XXXX
+    hero-slave --mongo localhost:27017/hero --rabbit amqp://login:password@host:3672/%2F
 
 ## hero-cli
 
