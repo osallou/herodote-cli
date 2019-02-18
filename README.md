@@ -46,14 +46,14 @@ Start a mongo and rabbitmq server locally (on host or docker exposing ports) and
 
 Install npm nodemon for autorestart on file change.
 
-    NODE_ENV=development node node_modules/nodemon/bin/nodemon bin/hero-master run --mongo localhost:27017/hero --rabbit amqp://login:password@host:3672/%2F --secret XXX
+    NODE_ENV=development node node_modules/nodemon/bin/nodemon bin/hero-master run --mongo localhost:27017/hero --rabbit amqp://login:password@host:5672/%2F --secret XXX
 
-    NODE_ENV=development node node_modules/nodemon/bin/nodemon bin/hero-slave run --mongo localhost:27017/hero --rabbit amqp://login:password@host:3672/%2F
+    NODE_ENV=development node node_modules/nodemon/bin/nodemon bin/hero-slave run --mongo localhost:27017/hero --rabbit amqp://login:password@host:5672/%2F
 
 ## Production
 
-    hero-master run --mongo localhost:27017/hero --rabbit amqp://login:password@host:3672/%2F --secret XXXX
-    hero-slave run --mongo localhost:27017/hero --rabbit amqp://login:password@host:3672/%2F
+    hero-master run --mongo localhost:27017/hero --rabbit amqp://login:password@host:5672/%2F --secret XXXX
+    hero-slave run --mongo localhost:27017/hero --rabbit amqp://login:password@host:5672/%2F
 
 ## hero-cli
 
