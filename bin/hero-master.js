@@ -9,12 +9,13 @@ var debug = require('debug')('herotode:server');
 var http = require('http');
 let server = null;
 
+var port = 3000;
+
 function runMaster() {
   /**
    * Get port from environment and store in Express.
    */
-  var port = normalizePort(process.env.PORT || '3000');
-
+  console.log('Listening on port', port);
   app.set('port', port);
 
   /**
@@ -98,6 +99,7 @@ program
   .option('-r, --rabbit [value]', 'RabbitMQ connection url', null)
   .option('-m, --mongo [value]', 'MongoDB connection url', null)
   .option('-s, --secret [value]', 'secret shared with Herodote', null)
+  .option('-p, --port [value]', 'port to use for web API', null)
   .action(function (args) {
     let rabbit = 'amqp://guest:guest@localhost:5672';
     let mongoUrl = 'localhost:27017/hero';
@@ -119,6 +121,11 @@ program
     }
     if(process.env.SECRET) {
       secret = process.env.SECRET;
+    }
+    if(args.port) {
+      port = normalizePort(args.port);
+    } else {
+      port = normalizePort(process.env.PORT || '3000');
     }
     cfg = {
       mongoUrl: mongoUrl,
