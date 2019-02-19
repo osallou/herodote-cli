@@ -55,17 +55,18 @@ Then create a hook with executor "webhook", and add as extra parameters:
 
 To start master on port 80, run:
     docker-compose up -d
-    PORT=80 node bin/hero-master run --rabbit amqp://herodote:RABBITPWD@IP:5672/%2F --mongo IP:27017/hero --secret SECRET
+    node bin/hero-master run --port 80 --rabbit amqp://herodote:RABBITPWD@IP:5672/%2F --mongo IP:27017/hero --secret SECRET
 
 To start a slave, on a slave host, run the following:
     node bin/hero-slave run --rabbit amqp://herodote:RABBITPWD@IP:5672/%2F --mongo IP:27017/hero
 
 To run hero-master or hero-slave as a background service
 
+    npm install -g forever
     forever start ....
 
-`.replace('SECRET', data.secret)
-    .replace('RABBITPWD', data.rabbit)
+`.replace(/SECRET/g, data.secret)
+    .replace(/RABBITPWD/g, data.rabbit)
     .replace(/IP/g, data.ip)
     .replace('PUBLIC', data.public)
 }

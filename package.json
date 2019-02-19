@@ -1,6 +1,6 @@
 {
   "name": "@osallou/herodote-cli",
-  "version": "0.1.2",
+  "version": "0.1.4",
   "description": "Client to manage web hooks from a Herodote server",
   "main": "index.js",
   "scripts": {
@@ -31,9 +31,9 @@
     "bcryptjs": "^2.4.3",
     "commander": "^2.19.0",
     "config": "^3.0.1",
+    "console.table": "^0.10.0",
     "debug": "^4.1.1",
     "express": "^4.16.4",
-    "forever": "^0.15.3",
     "js-yaml": "^3.12.1",
     "jsonwebtoken": "^8.4.0",
     "monk": "^6.0.6",
