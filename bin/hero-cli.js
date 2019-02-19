@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 
+require('console.table')
 const program = require('commander')
 var crypto = require('crypto');
 var winston = require('winston');
